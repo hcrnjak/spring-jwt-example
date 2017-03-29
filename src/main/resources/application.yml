@@ -1,0 +1,32 @@
+# config context path to "/" by setting an empty string
+server:
+  contextPath:
+
+app:
+  name: photo-wall
+
+jwt:
+  header: Authorization
+  secret: mySecret
+  expiration: 604800
+  claim:
+     userAuthorities: aut
+     userId: uid
+  route:
+    authentication:
+      path: auth
+      refresh: refresh
+
+spring:
+  datasource:
+    url: jdbc:postgresql://${OPENSHIFT_POSTGRESQL_DB_HOST}:${OPENSHIFT_POSTGRESQL_DB_PORT}/hrvoje
+    username: admincruxr8j
+    password: 1eBw7aYML8kT
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+#logging:
+#  level:
+#    org.springframework:
+#      security: DEBUG
