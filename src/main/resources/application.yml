@@ -15,7 +15,6 @@ jwt:
   route:
     authentication:
       path: auth
-      refresh: refresh
 
 spring:
   # H2

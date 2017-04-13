@@ -17,7 +17,7 @@ public class MethodProtectedRestController {
     @RequestMapping(method = RequestMethod.GET, path = "/admin")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getProtectedGreeting() {
-        return ResponseEntity.ok("Greetings from Authenticated and Admin protected method!");
+        return ResponseEntity.ok("Greetings from Authenticated and Authorized with ADMIN method!");
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/authenticated")
