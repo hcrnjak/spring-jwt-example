@@ -11,30 +11,18 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
           integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-
-    <style type="text/css">
-       .text-hidden {
-          text-overflow: ellipsis;
-          overflow: hidden;
-          white-space: nowrap;
-       }
-
-       .text-shown {
-          word-wrap: break-word;
-       }
-    </style>
 </head>
 <body>
 <div class="container">
     <h1>JWT Spring Security Demo</h1>
 
-    <div class="alert alert-danger" id="notLoggedIn">Not logged in!</div>
+    <div id="anonymousTitle" class="alert alert-danger">Not logged in!</div>
 
-    <div class="alert alert-info text-hidden" id="loggedIn"></div>
+    <div id="authenticatedTitle" class="alert alert-info text-shown" style="display: none"></div>
 
     <div class="row">
         <div class="col-md-6">
-            <div class="panel panel-default" id="login">
+            <div id="anonymousBody" class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Login</h3>
                 </div>
@@ -52,8 +40,7 @@
                             Try one of the following logins
                             <ul>
                                 <li>admin & admin</li>
-                                <li>user & password</li>
-                                <li>disabled & password</li>
+                                <li>user & user</li>
                             </ul>
                         </div>
                         <button type="submit" class="btn btn-default">login</button>
@@ -61,13 +48,13 @@
                 </div>
             </div>
 
-            <div id="userInfo">
+            <div id="authenticatedBody" style="display: none">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">Authenticated user</h3>
                     </div>
                     <div class="panel-body">
-                        <div id="userInfoBody"></div>
+                        <pre id="tokenData"></pre>
                         <button type="button" class="btn btn-default" id="logoutButton">logout</button>
                     </div>
                 </div>
@@ -76,8 +63,8 @@
 
         <div class="col-md-6">
             <div class="btn-group" role="group" aria-label="..." style="margin-bottom: 16px;">
-                <button type="button" class="btn btn-default" id="exampleServiceBtn">call example service</button>
-                <button type="button" class="btn btn-default" id="adminServiceBtn">call admin protected service</button>
+                <button type="button" class="btn btn-default" id="authServiceBtn">Call <b>Authenticated</b> service</button>
+                <button type="button" class="btn btn-default" id="adminServiceBtn">Call <b>Admin</b> protected service</button>
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -108,10 +95,14 @@
 
 <script src="https://code.jquery.com/jquery-2.2.2.js" integrity="sha256-4/zUCqiq0kqxhZIyp4G0Gk+AOtCJsY1TA00k5ClsZYE="
         crossorigin="anonymous"></script>
-<!-- Latest compiled and minified JavaScript -->
+
+<!-- Latest compiled and minified Bootstrap JS -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
         integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
         crossorigin="anonymous"></script>
+
+<script src="js/jwt-decode.min.js"></script>
 <script src="js/client.js"></script>
+
 </body>
 </html>

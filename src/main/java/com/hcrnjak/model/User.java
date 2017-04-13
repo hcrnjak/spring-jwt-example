@@ -1,4 +1,4 @@
-package photo.wall.model;
+package com.hcrnjak.model;
 
 import java.util.Set;
 
@@ -38,8 +38,7 @@ public class User {
     @JoinColumn(name = "USER_ID")
     private Set<Authority> authorities;
 
-    private User() {
-    }
+    private User() {}
 
     public User(String username, String password, String email, Boolean enabled,
             Set<Authority> authorities) {

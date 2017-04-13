@@ -1,4 +1,4 @@
-package photo.wall.config.security.jwt;
+package com.hcrnjak.config.security.jwt;
 
 import java.io.IOException;
 

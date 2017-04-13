@@ -1,4 +1,4 @@
-package photo.wall;
+package com.hcrnjak;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package photo.wall.model;
+package com.hcrnjak.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import photo.wall.model.enums.Role;
+import com.hcrnjak.model.enums.Role;
 
 @Entity
 @Table(name = "AUTHORITIES")
@@ -23,6 +23,8 @@ public class Authority {
     @Column(name = "ROLE")
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    private Authority() {}
 
     public Authority(Long id, Role role) {
         this.id = id;

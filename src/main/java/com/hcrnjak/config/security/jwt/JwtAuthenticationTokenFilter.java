@@ -1,4 +1,4 @@
-package photo.wall.config.security.jwt;
+package com.hcrnjak.config.security.jwt;
 
 import java.io.IOException;
 
@@ -17,7 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import photo.wall.config.security.user.AuthenticatedUser;
+import com.hcrnjak.config.security.authentication.AuthenticatedUser;
 
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 

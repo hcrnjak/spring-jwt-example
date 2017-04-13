@@ -1,4 +1,4 @@
-package photo.wall.config.security.jwt;
+package com.hcrnjak.config.security.jwt;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -15,11 +15,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
+import com.hcrnjak.config.security.authentication.AuthenticatedUser;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import photo.wall.config.security.user.AuthenticatedUser;
 
 @Service
 public class JwtTokenHandler {
@@ -82,8 +83,6 @@ public class JwtTokenHandler {
                     .setSigningKey(secret)
                     .requireAudience(appName)
                     .parseClaimsJws(token);
-
-            // Make sure audience file is
 
             // Make sure JWT is still valid  (notBefore < now < expiration)
             return jwt.getBody().getNotBefore().before(new Date()) && jwt.getBody().getExpiration().after(new Date());

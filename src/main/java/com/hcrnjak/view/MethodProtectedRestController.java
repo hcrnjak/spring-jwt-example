@@ -1,4 +1,4 @@
-package photo.wall.view;
+package com.hcrnjak.view;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,14 +14,14 @@ public class MethodProtectedRestController {
      * in @PreAuthorize such as 'hasRole()' to determine if a user has access. Remember that the hasRole expression assumes a
      * 'ROLE_' prefix on all role names. So 'ADMIN' here is actually stored as 'ROLE_ADMIN' in database!
      **/
-    @RequestMapping(method = RequestMethod.GET, path = "/protected")
+    @RequestMapping(method = RequestMethod.GET, path = "/admin")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getProtectedGreeting() {
-        return ResponseEntity.ok("Greetings from admin protected method!");
+        return ResponseEntity.ok("Greetings from Authenticated and Admin protected method!");
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/persons")
+    @RequestMapping(method = RequestMethod.GET, path = "/authenticated")
     public ResponseEntity<?> getNonProtectedGreeting() {
-        return ResponseEntity.ok("Greetings from non-protected method!");
+        return ResponseEntity.ok("Greetings from Authenticated method!");
     }
 }

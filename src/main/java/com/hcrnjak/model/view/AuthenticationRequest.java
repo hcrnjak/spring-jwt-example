@@ -1,17 +1,11 @@
-package photo.wall.model.view;
+package com.hcrnjak.model.view;
 
-import java.io.Serializable;
-
-public class AuthenticationRequest implements Serializable {
-
-    private static final long serialVersionUID = -8445943548965154778L;
+public class AuthenticationRequest {
 
     private String username;
     private String password;
 
-    public AuthenticationRequest() {
-        super();
-    }
+    private AuthenticationRequest() {}
 
     public AuthenticationRequest(String username, String password) {
         this.setUsername(username);

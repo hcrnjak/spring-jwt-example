@@ -1,4 +1,4 @@
-package photo.wall.model.view;
+package com.hcrnjak.model.view;
 
 public class AuthenticationResponse {
 

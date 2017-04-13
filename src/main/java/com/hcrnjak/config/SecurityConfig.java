@@ -1,4 +1,4 @@
-package photo.wall.config;
+package com.hcrnjak.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,11 +11,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 
-import photo.wall.config.security.jwt.JwtAuthenticationEntryPoint;
-import photo.wall.config.security.jwt.JwtAuthenticationTokenFilter;
-import photo.wall.config.security.user.AuthenticationInfoRepository;
+import com.hcrnjak.config.security.jwt.JwtAuthenticationEntryPoint;
+import com.hcrnjak.config.security.authentication.AuthenticationInfoRepository;
+import com.hcrnjak.config.security.jwt.JwtAuthenticationTokenFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -23,7 +23,7 @@ import photo.wall.config.security.user.AuthenticationInfoRepository;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private JwtAuthenticationEntryPoint unauthenticatedUserHandler;
+    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Autowired
     private AuthenticationInfoRepository authenticationInfoRepository;
@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(unauthenticatedUserHandler).and()
+                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers(
@@ -57,13 +57,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.js"
                 ).permitAll()
                 .antMatchers("/auth/**").permitAll()
+                .antMatchers("/h2/**").permitAll()
                 .anyRequest().authenticated();
 
         // Custom JWT based security filter
-        httpSecurity
-                .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterAfter(authenticationTokenFilterBean(), LogoutFilter.class);
 
         // Disable page caching
         httpSecurity.headers().cacheControl();
+
+        // Disable X-Frame-Options response header (needed for H2 Console)
+        httpSecurity.headers().frameOptions().disable();
     }
 }

@@ -1,4 +1,4 @@
-package photo.wall.view;
+package com.hcrnjak.view;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import photo.wall.config.security.jwt.JwtTokenHandler;
-import photo.wall.config.security.user.AuthenticatedUser;
-import photo.wall.config.security.user.AuthenticationInfoRepository;
-import photo.wall.domain.AuthenticationService;
-import photo.wall.model.view.AuthenticationRequest;
-import photo.wall.model.view.AuthenticationResponse;
+import com.hcrnjak.config.security.jwt.JwtTokenHandler;
+import com.hcrnjak.config.security.authentication.AuthenticationInfoRepository;
+import com.hcrnjak.domain.AuthenticationService;
+import com.hcrnjak.model.view.AuthenticationRequest;
+import com.hcrnjak.model.view.AuthenticationResponse;
+import com.hcrnjak.config.security.authentication.AuthenticatedUser;
 
 @RestController
 public class UserAuthenticationController {

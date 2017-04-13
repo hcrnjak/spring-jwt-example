@@ -1,4 +1,4 @@
-package photo.wall.config.security.user;
+package com.hcrnjak.config.security.authentication;
 
 import java.util.Collection;
 import java.util.Set;
@@ -9,9 +9,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import photo.wall.model.Authority;
-import photo.wall.model.User;
+import com.hcrnjak.model.Authority;
+import com.hcrnjak.model.User;
 
 public class AuthenticatedUser implements UserDetails {
 

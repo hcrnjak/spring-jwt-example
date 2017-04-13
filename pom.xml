@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.whynop</groupId>
-    <artifactId>photo-wall</artifactId>
+    <groupId>com.hcrnjak</groupId>
+    <artifactId>spring-security-jwt</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -44,15 +44,15 @@
             <artifactId>spring-boot-starter-log4j2</artifactId>
         </dependency>
 
-        <!-- DB Setup -->
+        <!-- DB Setup with H2 in-memory DB-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+        <!-- H2 Database -->
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>9.2-1003-jdbc4</version>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
         </dependency>
 
         <!--    Security setup  -->

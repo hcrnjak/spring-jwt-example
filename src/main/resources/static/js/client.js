@@ -5,12 +5,15 @@
 $(function () {
     // VARIABLES =============================================================
     var TOKEN_KEY = "jwtToken"
-    var $notLoggedIn = $("#notLoggedIn");
-    var $loggedIn = $("#loggedIn").hide();
-    var $response = $("#response");
-    var $login = $("#login");
-    var $userInfo = $("#userInfo").hide();
 
+    var $anonymousTitle = $("#anonymousTitle");
+    var $authenticatedTitle = $("#authenticatedTitle").hide();
+    
+    var $anonymousBody = $("#anonymousBody");
+    var $authenticatedBody = $("#authenticatedBody").hide();
+
+    var $requestResponse = $("#response");
+    
     // FUNCTIONS =============================================================
     function getJwtToken() {
         return localStorage.getItem(TOKEN_KEY);
@@ -33,10 +36,7 @@ $(function () {
             dataType: "json",
             success: function (data, textStatus, jqXHR) {
                 setJwtToken(data.token);
-                $login.hide();
-                $notLoggedIn.hide();
-                showTokenInformation()
-                showUserInformation();
+                showLoggedUserInfo();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 if (jqXHR.status === 401) {
@@ -52,19 +52,6 @@ $(function () {
         });
     }
 
-    function doLogout() {
-        removeJwtToken();
-        $login.show();
-        $userInfo
-            .hide()
-            .find("#userInfoBody").empty();
-        $loggedIn
-            .hide()
-            .attr("title", "")
-            .empty();
-        $notLoggedIn.show();
-    }
-
     function createAuthorizationTokenHeader() {
         var token = getJwtToken();
         if (token) {
@@ -74,42 +61,31 @@ $(function () {
         }
     }
 
-    function showUserInformation() {
-        $.ajax({
-            url: "/user",
-            type: "GET",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            headers: createAuthorizationTokenHeader(),
-            success: function (data, textStatus, jqXHR) {
-                var $userInfoBody = $userInfo.find("#userInfoBody");
+    function showLoggedUserInfo() {
+        // Show raw JWT
+        $anonymousTitle.hide();
+        $authenticatedTitle.text("Token: " + getJwtToken()).show();
 
-                $userInfoBody.append($("<div>").text("ID: " + data.id));
-                $userInfoBody.append($("<div>").text("Username: " + data.username));
-                $userInfoBody.append($("<div>").text("Enabled: " + data.enabled));
+        // Show JWT content
+        $anonymousBody.hide();
 
-                var $authorityList = $("<ul>");
-                data.authorities.forEach(function (authorityItem) {
-                    $authorityList.append($("<li>").text(authorityItem.authority));
-                });
-                var $authorities = $("<div>").text("Authorities:");
-                $authorities.append($authorityList);
-
-                $userInfoBody.append($authorities);
-                $userInfo.show();
-            }
-        });
+        var tokenDataHolder = $authenticatedBody.find("#tokenData");
+        tokenDataHolder.text(JSON.stringify(jwt_decode(getJwtToken()), undefined, 2));
+        $authenticatedBody.show();
     }
 
-    function showTokenInformation() {
-        $loggedIn
-            .text("Token: " + getJwtToken())
-            .attr("title", "Token: " + getJwtToken())
-            .show();
+    function logoutUser() {
+        removeJwtToken();
+
+        $authenticatedTitle.hide()
+        $anonymousTitle.show();
+
+        $authenticatedBody.hide()
+        $anonymousBody.show();
     }
 
     function showResponse(statusCode, message) {
-        $response
+        $requestResponse
             .empty()
             .text("status code: " + statusCode + "\n-------------------------\n" + message);
     }
@@ -127,11 +103,11 @@ $(function () {
         doLogin(formData);
     });
 
-    $("#logoutButton").click(doLogout);
+    $("#logoutButton").click(logoutUser);
 
-    $("#exampleServiceBtn").click(function () {
+    $("#authServiceBtn").click(function () {
         $.ajax({
-            url: "/persons",
+            url: "/authenticated",
             type: "GET",
             contentType: "application/json; charset=utf-8",
             headers: createAuthorizationTokenHeader(),
@@ -146,7 +122,7 @@ $(function () {
 
     $("#adminServiceBtn").click(function () {
         $.ajax({
-            url: "/protected",
+            url: "/admin",
             type: "GET",
             contentType: "application/json; charset=utf-8",
             headers: createAuthorizationTokenHeader(),
@@ -159,14 +135,9 @@ $(function () {
         });
     });
 
-    $loggedIn.click(function () {
-        $loggedIn
-                .toggleClass("text-hidden")
-                .toggleClass("text-shown");
-    });
-
     // INITIAL CALLS =============================================================
     if (getJwtToken()) {
+        // Remove previously stored JWT when page loads
         removeJwtToken();
     }
 });
