@@ -193,7 +193,7 @@ that comes to us in JSON format.
 And also, SecurityContext is being set explicitely, which might not be the best practice
 In case authentication fails, Manager will call AuthenticationEntryPoint (defined in step 3), which will just return 401.
 
-## Final consirdations
+## Final considerations
 
 The code presented here shows one way of implementing support for JWT  tokens.
 The main idea behind this approach is to basically bypass the authentication part of the Spring Security filter chain.
