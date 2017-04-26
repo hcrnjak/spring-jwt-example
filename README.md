@@ -164,7 +164,7 @@ No CSRF, no Session, special unauthenticatedHandler, custom JWT token filter
         // Disable page caching
         httpSecurity.headers().cacheControl();
     }
-    ```	
+```	
 
 ### 9) In order to actually get the JWT, user needs to authenticate via username/password
 
